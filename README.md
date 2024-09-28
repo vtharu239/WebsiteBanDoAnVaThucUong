@@ -10,6 +10,7 @@
 4) Vào file web.config, ở đường dẫn connectionString, hãy thay đổi thành Data Source của bạn (là Server Name trong SQL Server)
 
 // Copy connectionString bên dưới và đổi Data Source nhe
+
 <add name="DefaultConnection" providerName="System.Data.SqlClient" 
      connectionString="Data Source=DESKTOP-7L0TGLV\SQLEXPRESS;Initial Catalog=WebsiteBanDoAnVaThucUong;
      Integrated Security=True;MultipleActiveResultSets=True" />
