@@ -11,9 +11,9 @@
 
 // Copy connectionString bên dưới và đổi Data Source nhe
 
-<add name="DefaultConnection" providerName="System.Data.SqlClient" 
+" <add name="DefaultConnection" providerName="System.Data.SqlClient" 
      connectionString="Data Source=DESKTOP-7L0TGLV\SQLEXPRESS;Initial Catalog=WebsiteBanDoAnVaThucUong;
-     Integrated Security=True;MultipleActiveResultSets=True" />
+     Integrated Security=True;MultipleActiveResultSets=True" /> "
      
 ![image](https://github.com/user-attachments/assets/6e34d0f5-ed14-4159-96d3-762780b58477)
 
