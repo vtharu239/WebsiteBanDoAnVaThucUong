@@ -11,4 +11,3 @@
 ![image](https://github.com/user-attachments/assets/6e34d0f5-ed14-4159-96d3-762780b58477)
 
 5) Sau đó chạy file script để lấy được dữ liệu
-[Uploading foodanddrink.sql…]()
