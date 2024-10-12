@@ -84,6 +84,7 @@ namespace WebsiteBanDoAnVaThucUong.Models
                 .HasMany(u => u.Stores)
                 .WithRequired(y => y.User)
                 .HasForeignKey(y => y.IdManager);
+
         }
 
         public DbSet<OrderDetailPromotion> OrderDetailPromotion { get; set; }
@@ -113,10 +114,11 @@ namespace WebsiteBanDoAnVaThucUong.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet <Subscribe> Subscribe { get; set; }
-        
+        public DbSet <StoreProduct> StoreProducts { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+     
     }
 }
