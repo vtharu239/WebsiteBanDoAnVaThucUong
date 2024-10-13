@@ -88,17 +88,12 @@ namespace WebsiteBanDoAnVaThucUong.Models
         }
 
         public DbSet<OrderDetailPromotion> OrderDetailPromotion { get; set; }
-        //public DbSet<ComboPromotionProduct> ComboPromotionProduct { get; set; }
-        //public DbSet<ComboPromotion> ComboPromotion { get; set; }
         public DbSet<PromotionProduct> PromotionProducts { get; set; }
-        //public DbSet<PromotionType> PromotionType { get; set; }
-        //public DbSet<PromotionRule> PromotionRules { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<FeedBackLetter> FeedBackLetters { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
         public DbSet<ImageSlider> ImageSlider { get; set; }
         public DbSet<Store> Stores { get; set; }
-        //public DbSet<WishlistStore> WishlistStores { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<ReviewProduct> Reviews { get; set; }
         public DbSet<ThongKe> ThongKes { get; set; }
