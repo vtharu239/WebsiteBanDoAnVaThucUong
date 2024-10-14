@@ -12,7 +12,7 @@
         }
 
         $.ajax({
-            url: '/shoppingCart/AddToCart',
+            url: '/shoppingcart/AddToCart',
             type: 'POST',
             data: { id: id, quantity: quantity, storeId: storeId },
             success: function (rs) {
