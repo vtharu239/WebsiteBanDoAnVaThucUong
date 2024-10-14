@@ -134,12 +134,13 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             if (ModelState.IsValid)
             {
                 ShoppingCart cart = (ShoppingCart)Session["Cart"];
-                if (cart != null && cart.Items.Any())
+                if (cart != null)
                 {
                     try
                     {
                         // Kiểm tra xem tất cả sản phẩm có cùng StoreId không
                         var storeId = cart.Items.First().StoreId;
+
                         if (cart.Items.All(item => item.StoreId == storeId))
                         {
                             Order order = new Order();
@@ -222,6 +223,7 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                             //order.E = req.CustomerName;
                             db.Orders.Add(order);
                             db.SaveChanges();
+
                             //send mail cho khachs hang
                             var strSanPham = "";
                             var thanhtien = decimal.Zero;
