@@ -359,6 +359,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServiceCollection.cs" />
+    <Compile Include="Migrations\202410140616203_h.cs" />
+    <Compile Include="Migrations\202410140616203_h.Designer.cs">
+      <DependentUpon>202410140616203_h.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
@@ -3292,10 +3296,6 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
-    <Content Include="Views\StoreProducts\Create.cshtml" />
-    <Content Include="Views\StoreProducts\Delete.cshtml" />
-    <Content Include="Views\StoreProducts\Details.cshtml" />
-    <Content Include="Views\StoreProducts\Edit.cshtml" />
     <Content Include="Views\StoreProducts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -3312,6 +3312,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202410140616203_h.resx">
+      <DependentUpon>202410140616203_h.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

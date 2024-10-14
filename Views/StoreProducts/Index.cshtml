@@ -1,52 +1,154 @@
 ﻿@model IEnumerable<WebsiteBanDoAnVaThucUong.Models.EF.StoreProduct>
-
+@using Microsoft.AspNet.Identity
+@Html.AntiForgeryToken()
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = ViewBag.StoreName;
 }
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
 
-<h2>Index</h2>
+<div class="container product_section_container">
+    <h2>@ViewBag.Title</h2>
+    <div class="row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Product.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Store.Alias)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StockCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SellCount)
-        </th>
-        <th></th>
-    </tr>
+        <div class="col product_section clearfix">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Store.Alias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StockCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SellCount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/home/index">Home</a></li>
+                    <li class="active"><a href="/products/index"><i class="fa fa-angle-right" aria-hidden="true"></i>Danh sách sản phẩm</a></li>
+
+                    @*<li class="active-cate"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@ViewBag.Title</a></li>*@
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+
+            <div class="sidebar">
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Product Category</h5>
+                    </div>
+                    @Html.Action("MenuLeft", "Menu")
+                </div>
+                <!-- Price Range Filtering -->
+                <!--<div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Filter by Price</h5>
+                    </div>
+                    <p>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    </p>
+                    <div id="slider-range"></div>
+                    <div class="filter_button"><span>filter</span></div>
+                    <hr />
+                    @Html.Action("Refresh", "Home")
+                </div>-->
+            </div>
+            <!-- Main Content -->
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Product Sorting -->
+                            <div class="product_sorting_container product_sorting_container_top">
+                                <ul class="product_sorting">
+                                    <li>
+                                        <span class="type_sorting_text">Default Sorting</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_type">
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
+                                            <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Show</span>
+                                        <span class="num_sorting_text">6</span>
+                                        <i class="fa fa-angle-down"></i>
+                                        <ul class="sorting_num">
+                                            <li class="num_sorting_btn"><span>6</span></li>
+                                            <li class="num_sorting_btn"><span>12</span></li>
+                                            <li class="num_sorting_btn"><span>24</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="pages d-flex flex-row align-items-center">
+                                    <div class="page_current">
+                                        <span>1</span>
+                                        <ul class="page_selection">
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="page_total"><span>of</span> 3</div>
+                                    <div id="next_page" class="page_next"><a href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></div>
+                                </div>
+
+                            </div>
+                            <div class="product-grid">
+                                <!-- Product 1 -->
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        var strImge = "";
+                                        var img = item.Product.ProductImage.FirstOrDefault(x => x.IsDefault);
+                                        if (img != null)
+                                        {
+                                            strImge = img.Image;
+                                        }
+
+                                        <div class="product-item @item.Product.ProductCategory.Alias">
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <img src="@strImge" style="width: 190px; height: 170px; margin-left:15px" alt="@item.Product.Title">
+                                                </div>
+
+                                                @*<div data-id="@item.Id" class="favorite @(isWishlist ? "active" : "")" style="margin-right: 160px; font-size:20px"></div>*@
+
+                                                @if (item.Product.SalePrice > 0)
+                                                {
+                                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
+                                                }
+                                                @* <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>*@
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Product.Alias-p@(item.Product.Id)">@item.Product.Title</a></h6>
+                                                    @if (item.Product.SalePrice > 0)
+                                                    {
+                                                        <div class="product_price">@WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(item.Product.SalePrice, 0)<span>@WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(item.Product.SalePrice, 0)</span></div>
+                                                        <div style="display:none;" class="in_product_price"> @item.Product.SalePrice</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="product_price">@WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(item.Product.SalePrice, 0)</div>
+                                                        <div style="display:none;" class="in_product_price"> @item.Product.SalePrice</div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Product.Id" data-storeid="@item.StoreId">add to cart</a></div>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+
 }
-
-</table>
