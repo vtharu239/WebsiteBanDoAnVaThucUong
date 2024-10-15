@@ -361,9 +361,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServiceCollection.cs" />
-    <Compile Include="Migrations\202410141002366_TMDT_addStoreProduct.cs" />
-    <Compile Include="Migrations\202410141002366_TMDT_addStoreProduct.Designer.cs">
-      <DependentUpon>202410141002366_TMDT_addStoreProduct.cs</DependentUpon>
+    <Compile Include="Migrations\202410150926077_a.cs" />
+    <Compile Include="Migrations\202410150926077_a.Designer.cs">
+      <DependentUpon>202410150926077_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202410150936302_hhhh.cs" />
+    <Compile Include="Migrations\202410150936302_hhhh.Designer.cs">
+      <DependentUpon>202410150936302_hhhh.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
@@ -3572,8 +3576,11 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410141002366_TMDT_addStoreProduct.resx">
-      <DependentUpon>202410141002366_TMDT_addStoreProduct.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410150926077_a.resx">
+      <DependentUpon>202410150926077_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410150936302_hhhh.resx">
+      <DependentUpon>202410150936302_hhhh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
