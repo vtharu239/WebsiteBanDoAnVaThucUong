@@ -359,9 +359,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServiceCollection.cs" />
-    <Compile Include="Migrations\202410140616203_h.cs" />
-    <Compile Include="Migrations\202410140616203_h.Designer.cs">
-      <DependentUpon>202410140616203_h.cs</DependentUpon>
+    <Compile Include="Migrations\202410141002366_TMDT_addStoreProduct.cs" />
+    <Compile Include="Migrations\202410141002366_TMDT_addStoreProduct.Designer.cs">
+      <DependentUpon>202410141002366_TMDT_addStoreProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
@@ -3314,8 +3314,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410140616203_h.resx">
-      <DependentUpon>202410140616203_h.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410141002366_TMDT_addStoreProduct.resx">
+      <DependentUpon>202410141002366_TMDT_addStoreProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
