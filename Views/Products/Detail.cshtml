@@ -116,7 +116,6 @@
                             @Html.Raw(Model.Detail)
                         </div>
                     </div>
-
                     <!-- Tab Additional Info -->
                     <!-- Tab Reviews -->
 
@@ -130,21 +129,24 @@
                             </div>
 
                             <!-- Add Review -->
-
                             <div class="col-lg-6 add_review_col">
-
-
                                 @Html.Action("_Review", "Review", new { productId = Model.Id })
                             </div>
 
+
                         </div>
                     </div>
-
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col">
+                    @Html.Action("RelatedProducts", new { productId = Model.Id })
+                </div>
+            </div>
 
-    </div>
+            </div>
+
+        </div>
 
 }
 @*@section scripts{

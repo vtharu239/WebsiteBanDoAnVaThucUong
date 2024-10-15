@@ -2,8 +2,7 @@
 @{
     ViewBag.Title = "Kết quả tìm kiếm";
 }
-@*<div class="store-grid">*@
-<div clss="container">
+<div class="container">
     <div class="row">
         <div class="col text-center">
             <div class="section_title new_arrivals_title">
@@ -12,57 +11,59 @@
         </div>
     </div>
     <div class="row" style="margin-top: 50px; margin-left:100px; margin:10px">
-        @*<div class="col" style="width: 400px; height: 300px">*@
-            @if (Model != null && Model.Any())
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
             {
-                foreach (var item in Model)
+                <!-- Product Item -->
+                var strImge = "";
+                var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+                if (img != null)
                 {
-                    <!-- Product 1 -->
-
-                    var strImge = "";
-                    var img = item.ProductImage.FirstOrDefault(x => x.IsDefault);
-                    if (img != null)
-                    {
-                        strImge = img.Image;
-                    }
-
-                    <div class="product-item @item.ProductCategory.Alias" style="width: 350px; height:360px; margin-left: 30px">
-                        <div class="product discount product_filter">
-                            <div class="product_image centered">
-                                <img src="@strImge" style="width:300px; height:230px; margin-left:25px" alt="@item.Title">
-                            </div>
-
-                            @*@if (item.PriceSale > 0)
-                            {
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
-                            }*@
-                            <div class="product_info">
-                                <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
-
-                                    <div class="product_price">@WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(item.SalePrice, 0)</div>
-
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
-                        </div>
-                        @*<div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>*@
-                    </div>
-
+                    strImge = img.Image;
                 }
-            }
-            else
-            {
-                <p>Không tìm thấy sản phẩm nào phù hợp.</p>
-            }
 
-        @*</div>*@
-
+                <div class="product-item @item.ProductCategory.Alias" style="width: 350px; height:360px; margin-left: 30px">
+                    <div class="product discount product_filter">
+                        <div class="product_image centered">
+                            <img src="@strImge" style="width:300px; height:230px; margin-left:25px" alt="@item.Title">
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                            <div class="product_price">@WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(item.SalePrice, 0)</div>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@item.Id">add to cart</a></div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+        }
     </div>
-</div>
-@*</div>*@
 
-<style>
-    .product-item 
+    <!-- Pagination Block -->
+    @if (ViewBag.TotalPages > 1)
     {
+        <div class="row">
+            <div class="col text-center">
+                <ul class="pagination justify-content-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Search", new { searchString = Request["searchString"], page = i })">@i</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- CSS for styling -->
+<style>
+    .product-item {
         display: inline-block;
         width: 350px;
         height: 330px;
@@ -80,5 +81,15 @@
         .product-item img {
             max-width: 100%;
             max-height: 100%;
+        }
+
+    .pagination {
+        margin-top: 20px;
+    }
+
+        .pagination .active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
         }
 </style>
