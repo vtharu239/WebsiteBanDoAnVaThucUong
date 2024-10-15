@@ -359,6 +359,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServiceCollection.cs" />
+    <Compile Include="Migrations\202410150842385_aa.cs" />
+    <Compile Include="Migrations\202410150842385_aa.Designer.cs">
+      <DependentUpon>202410150842385_aa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\PromotionHelper.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -3888,6 +3892,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202410150842385_aa.resx">
+      <DependentUpon>202410150842385_aa.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
