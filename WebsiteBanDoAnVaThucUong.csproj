@@ -365,6 +365,7 @@
       <DependentUpon>202410141002366_TMDT_addStoreProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EF\ProductViewHistory.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -3299,6 +3300,7 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Views\StoreProducts\Index.cshtml" />
     <Content Include="Views\Products\_RelatedProducts.cshtml" />
+    <Content Include="Views\Products\ViewHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
