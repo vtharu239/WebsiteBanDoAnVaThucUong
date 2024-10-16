@@ -1,7 +1,9 @@
-﻿@model IEnumerable<WebsiteBanDoAnVaThucUong.Models.EF.Product>
+﻿﻿@model IEnumerable<WebsiteBanDoAnVaThucUong.Models.EF.Product>
+
 <div class="view-history-section">
     <h3>Your Recently Viewed Products</h3>
     <div class="view-historys">
+
         @if (Model.Any())
         {
             foreach (var item in Model)
@@ -20,6 +22,7 @@
         }
     </div>
 </div>
+
 <style>
     .view-history-section {
         margin-top: 40px;
