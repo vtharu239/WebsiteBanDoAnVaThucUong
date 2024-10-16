@@ -7,13 +7,13 @@ namespace WebsiteBanDoAnVaThucUong.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class getData : IMigrationMetadata
+    public sealed partial class add_ProductViewHistory_table : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(getData));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(add_ProductViewHistory_table));
         
         string IMigrationMetadata.Id
         {
-            get { return "202410150234474_getData"; }
+            get { return "202410160655093_add_ProductViewHistory_table"; }
         }
         
         string IMigrationMetadata.Source
