@@ -134,13 +134,12 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             if (ModelState.IsValid)
             {
                 ShoppingCart cart = (ShoppingCart)Session["Cart"];
-                if (cart != null)
+                if (cart != null && cart.Items.Any())
                 {
                     try
                     {
                         // Kiểm tra xem tất cả sản phẩm có cùng StoreId không
                         var storeId = cart.Items.First().StoreId;
-
                         if (cart.Items.All(item => item.StoreId == storeId))
                         {
                             Order order = new Order();
@@ -177,7 +176,12 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                                         });
                                     }
                                 }
-
+                                //điểm quy đổi ra rank 
+                                if (order.CustomerId != null)
+                                {
+                                    var rankingService = new RankingService(db);
+                                    rankingService.UpdateMemberRank(order.CustomerId, order.FinalAmount);
+                                }
                                 // Cập nhật số lượng tồn kho
                                 var storeProduct = db.StoreProducts.FirstOrDefault(sp => sp.ProductId == item.ProductId && sp.StoreId == storeId);
                                 if (storeProduct != null)
@@ -223,7 +227,6 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                             //order.E = req.CustomerName;
                             db.Orders.Add(order);
                             db.SaveChanges();
-
                             //send mail cho khachs hang
                             var strSanPham = "";
                             var thanhtien = decimal.Zero;
@@ -679,3 +682,5 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
         #endregion
     }
 }
+
+

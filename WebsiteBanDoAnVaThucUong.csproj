@@ -347,6 +347,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageSlidersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MemberRankController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -361,14 +362,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410160655093_add_ProductViewHistory_table.cs" />
-    <Compile Include="Migrations\202410160655093_add_ProductViewHistory_table.Designer.cs">
-      <DependentUpon>202410160655093_add_ProductViewHistory_table.cs</DependentUpon>
+    <Compile Include="Migrations\202410210508007_add_MemberRank.cs" />
+    <Compile Include="Migrations\202410210508007_add_MemberRank.Designer.cs">
+      <DependentUpon>202410210508007_add_MemberRank.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EF\MemberRank.cs" />
     <Compile Include="Models\EF\ProductViewHistory.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
+    <Compile Include="Models\RankingService.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -400,6 +403,7 @@
     <Compile Include="Models\EF\WishlistStore.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\MemberRankViewModel.cs" />
     <Compile Include="Models\ViewModels\OrderViewModel.cs" />
     <Compile Include="Models\Payments\VnPayLibrary.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
@@ -3871,6 +3875,7 @@
     <Content Include="Views\StoreProducts\Index.cshtml" />
     <Content Include="Views\Products\_RelatedProducts.cshtml" />
     <Content Include="Views\Products\ViewHistory.cshtml" />
+    <Content Include="Views\MemberRank\MemberRank.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3896,8 +3901,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410160655093_add_ProductViewHistory_table.resx">
-      <DependentUpon>202410160655093_add_ProductViewHistory_table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410210508007_add_MemberRank.resx">
+      <DependentUpon>202410210508007_add_MemberRank.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
