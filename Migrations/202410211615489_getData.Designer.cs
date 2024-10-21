@@ -6,14 +6,14 @@ namespace WebsiteBanDoAnVaThucUong.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class add_MemberRank : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
+    public sealed partial class getData : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_MemberRank));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(getData));
         
         string IMigrationMetadata.Id
         {
-            get { return "202410210508007_add_MemberRank"; }
+            get { return "202410211615489_getData"; }
         }
         
         string IMigrationMetadata.Source
