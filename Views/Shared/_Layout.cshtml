@@ -92,42 +92,6 @@
         .hamburger_container {
             display: none;
         }
-        /*css cho suggestion search*/
-        .suggestions-box {
-            border: 1px solid #ccc;
-            background-color: white;
-            position: absolute;
-            z-index: 1000;
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            top: 100%; /* Đảm bảo hộp xuất hiện ngay bên dưới trường nhập liệu */
-            left: 0; /* Căn chỉnh hộp với trường nhập liệu */
-            margin-top: 5px; /* Thêm một số khoảng cách giữa trường nhập liệu và hộp đề xuất */
-        }
-
-        .suggestion-item {
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f1f1;
-        }
-
-            .suggestion-item img {
-                margin-right: 10px;
-            }
-
-            .suggestion-item a {
-                flex-grow: 1;
-                text-decoration: none;
-                color: #333;
-            }
-
-            .suggestion-item:hover {
-                background-color: #f9f9f9;
-            }
     </style>
 
     <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
@@ -143,15 +107,22 @@
     <meta property="og:site_name" content="Bán hàng online" />
     <meta property="og:type" content="Website" />
     <meta property="og:locale" content="vi_VN" />
+    @*<meta property="fb:app_id" content="232505114857147" />*@
+    @*<meta property="fb:pages" content="1128104117285467" />*@
     <meta property="og:title" itemprop="name" content="@ViewBag.Title" />
     <meta property="og:url" itemprop="url" content="https://www.ten_mien_cua_cac_ban/" />
     <meta property="og:description" content="@ViewBag.SeoDescription" />
     <meta content="https://cdn.24h.com.vn/upload/2-2018/images/2018-06-14/logo-chan-trang-24h.png" property="og:image" itemprop="thumbnailUrl" />
     <!--script_breadcrum-->
+    @*@RenderSection("css", required: false)*@
     <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+
     @Scripts.Render("~/bundles/jqueryval")
+
+
 </head>
 <body>
     <div class="super_container">
@@ -182,6 +153,7 @@
                             </div>
                         </form>
                     </div>
+
                     <div class="checkout">
                         <a href="/gio-hang">
                             <i class="fa fa-shopping-cart" style="font-size: 30px; color:#3687a2"></i>
@@ -196,6 +168,7 @@
                                 <a href="/account/profile"><i class="fa fa-user"></i> Thông tin cá nhân</a>
                                 <a href="/review/lichsudonhang"><i class="fa fa-sticky-note"></i> Lịch sử đơn hàng</a>
                                 <a href="/wishlist/index"><i class="fa fa-heart"></i> Danh sách yêu thích</a>
+                                <a href="/memberrank/memberrank"><i class="fa fa-trophy"></i> Xem hạng thành viên</a>
                                 <a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                             </div>
                         </div>
@@ -267,12 +240,6 @@
 
     @*@Scripts.Render("~/bundles/jquery")*@
 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger intent="WELCOME"
-                  chat-title="Food&Drink"
-                  agent-id="497f3f8c-0aef-45d3-9802-ab13b2b60fb3"
-                  language-code="vi"></df-messenger>
-
 
     <script src="~/Content/assets/styles/bootstrap4/popper.js"></script>
     <script src="~/Content/assets/styles/bootstrap4/bootstrap.min.js"></script>
@@ -291,7 +258,7 @@
 
 
 
-<script>
+    <script>
  $(document).ready(function () {
         $('#search-input').on('keyup', function () {
             var query = $(this).val();
@@ -326,8 +293,48 @@
                 $('#suggestions-box').hide();
             }
         });
- });
-</script>
+    });
+    </script>
+
+    <style>
+        .suggestions-box {
+            border: 1px solid #ccc;
+            background-color: white;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            top: 100%; /* Đảm bảo hộp xuất hiện ngay bên dưới trường nhập liệu */
+            left: 0; /* Căn chỉnh hộp với trường nhập liệu */
+            margin-top: 5px; /* Thêm một số khoảng cách giữa trường nhập liệu và hộp đề xuất */
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+            .suggestion-item img {
+                margin-right: 10px;
+            }
+
+            .suggestion-item a {
+                flex-grow: 1;
+                text-decoration: none;
+                color: #333;
+            }
+
+            .suggestion-item:hover {
+                background-color: #f9f9f9;
+            }
+    </style>
 </body>
 </html>
+
+
 
