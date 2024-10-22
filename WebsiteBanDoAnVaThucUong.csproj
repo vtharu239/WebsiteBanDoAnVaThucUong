@@ -362,9 +362,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202410210508007_add_MemberRank.cs" />
-    <Compile Include="Migrations\202410210508007_add_MemberRank.Designer.cs">
-      <DependentUpon>202410210508007_add_MemberRank.cs</DependentUpon>
+    <Compile Include="Migrations\202410210625137_MemberRank.cs" />
+    <Compile Include="Migrations\202410210625137_MemberRank.Designer.cs">
+      <DependentUpon>202410210625137_MemberRank.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\MemberRank.cs" />
@@ -3901,8 +3901,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202410210508007_add_MemberRank.resx">
-      <DependentUpon>202410210508007_add_MemberRank.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202410210625137_MemberRank.resx">
+      <DependentUpon>202410210625137_MemberRank.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

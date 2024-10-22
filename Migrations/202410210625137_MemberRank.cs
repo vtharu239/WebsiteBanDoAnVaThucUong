@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class add_MemberRank : DbMigration
+    public partial class MemberRank : DbMigration
     {
         public override void Up()
         {
