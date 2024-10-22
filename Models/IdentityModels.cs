@@ -14,7 +14,7 @@ namespace WebsiteBanDoAnVaThucUong.Models
     {
         public bool Status { get; set; }
         public string FullName { get; set; }
-        //public string Phone {  get; set; }
+        public string Phone {  get; set; }
         public string Address { get; set; }
         public virtual ICollection<New> News { get; set; }
         public virtual ICollection<Wishlist> Wishlists { get; set; }

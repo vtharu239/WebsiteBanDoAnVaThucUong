@@ -166,11 +166,47 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                 .GroupBy(sp => sp.Product.Id)
                 .Select(g => g.FirstOrDefault())
                 .ToList();
+            // Pass stock information to view
+            var stockInfo = uniqueProducts.ToDictionary(
+        sp => sp.ProductId,
+        sp => new StockInfo
+        {
+            StockCount = sp.StockCount,
+            IsSoldOut = sp.StockCount <= 0
+        }
+    );
+
+            ViewBag.StockInfo = stockInfo;
 
             return PartialView(uniqueProducts);
         }
-
+        // Add method to check stock before adding to cart
         [HttpPost]
+        public JsonResult CheckStockAvailability(int productId)
+        {
+            var storeId = Session["SelectedStoreId"] as int?;
+            if (!storeId.HasValue)
+            {
+                return Json(new { success = false, message = "Vui lòng chọn cửa hàng" });
+            }
+
+            var storeProduct = db.StoreProducts
+                .FirstOrDefault(sp => sp.ProductId == productId && sp.StoreId == storeId);
+
+            if (storeProduct == null)
+            {
+                return Json(new { success = false, message = "Sản phẩm không có sẵn tại cửa hàng này" });
+            }
+
+            if (storeProduct.StockCount <= 0)
+            {
+                return Json(new { success = false, message = "Sản phẩm đã hết hàng" });
+            }
+
+            return Json(new { success = true, stockCount = storeProduct.StockCount });
+        }
+    
+    [HttpPost]
         public JsonResult SelectStore(int storeId)
         {
             try

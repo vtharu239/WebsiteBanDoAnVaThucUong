@@ -366,12 +366,17 @@
     <Compile Include="Migrations\202410210625137_MemberRank.Designer.cs">
       <DependentUpon>202410210625137_MemberRank.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202410220719296_d.cs" />
+    <Compile Include="Migrations\202410220719296_d.Designer.cs">
+      <DependentUpon>202410220719296_d.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\EF\MemberRank.cs" />
     <Compile Include="Models\EF\ProductViewHistory.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
     <Compile Include="Models\RankingService.cs" />
+    <Compile Include="Models\StockInfo.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />
@@ -3903,6 +3908,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202410210625137_MemberRank.resx">
       <DependentUpon>202410210625137_MemberRank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202410220719296_d.resx">
+      <DependentUpon>202410220719296_d.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
