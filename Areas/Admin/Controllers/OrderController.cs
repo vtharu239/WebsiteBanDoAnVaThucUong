@@ -64,7 +64,6 @@ namespace WebsiteBanDoAnVaThucUong.Areas.Admin.Controllers
                 db.SaveChanges();
                 return Json(new { success = true });
             }
-
             return Json(new { success = false });
         }
 

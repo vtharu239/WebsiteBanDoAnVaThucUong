@@ -368,6 +368,7 @@
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
     <Compile Include="Models\RankingService.cs" />
+    <Compile Include="Models\StockInfo.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Common\Filter.cs" />

@@ -45,6 +45,7 @@
                         <th>Giảm giá</th>
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
+                        <th>Hoạt động</th>
                         <th style="width:150px;"></th>
                     </tr>
                 </thead>
@@ -62,6 +63,7 @@
                                 <td>@item.Discount</td>
                                 <td>@item.StartDate</td>
                                 <td>@item.EndDate</td>
+                                <td>@item.IsActive</td>
                                 <td>
                                     <a href="/admin/vouchers/edit/@item.Id" class="btn btn-primary">Sửa</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
