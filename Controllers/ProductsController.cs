@@ -168,13 +168,13 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                 .ToList();
             // Pass stock information to view
             var stockInfo = uniqueProducts.ToDictionary(
-        sp => sp.ProductId,
-        sp => new StockInfo
-        {
+            sp => sp.ProductId,
+            sp => new StockInfo
+            {
             StockCount = sp.StockCount,
             IsSoldOut = sp.StockCount <= 0
-        }
-    );
+             }
+            );
 
             ViewBag.StockInfo = stockInfo;
 
