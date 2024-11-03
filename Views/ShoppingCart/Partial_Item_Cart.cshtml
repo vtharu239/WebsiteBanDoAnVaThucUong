@@ -10,6 +10,9 @@
         <th>Giá</th>
 
         <th style="width:100px;">Số lượng</th>
+        <th>Topping</th>
+        <th>Size</th>
+        <th>Extra</th>
         <th>Thành tiền</th>
         <th style="width:200px;">
 
@@ -49,12 +52,21 @@
                     }
                 </td>
                 <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" @(item.IsGift ? "disabled" : "") /></td>
+                <td>@item.FormattedToppingNames</td>
+                <td>@item.FormattedSizeNames</td>
+                <td>@item.FormattedExtraNames</td>
                 <th>@Common.FormatNumber(item.TotalPrice, 2)</th>
                 <td>
                     @if (!item.IsGift)
                     {
-                        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xóa</a>
-                        <a href="#" data-id="@item.ProductId" data-storeid="@item.StoreId" class="btn btn-sm btn-success btnUpdate">Cập nhật</a>
+                        <a href="#" data-id="@item.ProductId" data-storeid="@item.StoreId" data-sizeids="@string.Join(",", item.SelectedSizeIds)"
+                            data-toppingids="@string.Join(",", item.SelectedToppingIds)"
+                            data-extraids="@string.Join(",", item.SelectedExtraIds)"
+                            class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                        <a href="#" data-id="@item.ProductId" data-storeid="@item.StoreId" data-sizeids="@string.Join(",", item.SelectedSizeIds)"
+                            data-toppingids="@string.Join(",", item.SelectedToppingIds)"
+                            data-extraids="@string.Join(",", item.SelectedExtraIds)"
+                         class="btn btn-sm btn-success btnUpdate">Cập nhật</a>
                     }
                 </td>
             </tr>

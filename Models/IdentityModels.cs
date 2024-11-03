@@ -66,13 +66,6 @@ namespace WebsiteBanDoAnVaThucUong.Models
                .WithRequired(y => y.User)
                .HasForeignKey(y => y.CustomerId);
 
-            // Khóa ngoại Voucher
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(u => u.Vouchers)
-            //    .WithRequired(y => y.User)
-            //    .HasForeignKey(y => y.CreatedBy);
-
-
             // Khóa ngoại FeedBackLetter
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.FeedBackLetters)
@@ -84,6 +77,32 @@ namespace WebsiteBanDoAnVaThucUong.Models
                 .HasMany(u => u.Stores)
                 .WithRequired(y => y.User)
                 .HasForeignKey(y => y.IdManager);
+            modelBuilder.Entity<ProductExtra>()
+     .HasKey(pe => new { pe.ProductId, pe.ExtraId });
+
+            modelBuilder.Entity<ProductExtra>()
+                .HasRequired(pe => pe.Product)
+                .WithMany(p => p.ProductExtra)
+                .HasForeignKey(pe => pe.ProductId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProductTopping>()
+                .HasKey(pt => new { pt.ProductId, pt.ToppingId });
+
+            modelBuilder.Entity<ProductTopping>()
+                .HasRequired(pt => pt.Product)
+                .WithMany(p => p.ProductTopping)
+                .HasForeignKey(pt => pt.ProductId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ProductSize>()
+                .HasKey(ps => new { ps.ProductId, ps.SizeId });
+
+            modelBuilder.Entity<ProductSize>()
+                .HasRequired(ps => ps.Product)
+                .WithMany(p => p.ProductSize)
+                .HasForeignKey(ps => ps.ProductId)
+                .WillCascadeOnDelete(false);
 
         }
 
@@ -112,6 +131,15 @@ namespace WebsiteBanDoAnVaThucUong.Models
         public DbSet <StoreProduct> StoreProducts { get; set; }
         public DbSet<ProductViewHistory> ProductViewHistory { get; set; }
         public DbSet<MemberRank> MemberRanks { get; set; }
+        public DbSet<Combo> Combo { get; set; }
+        public DbSet<ComboDetail> ComboDetail { get; set; }
+        public DbSet<Extra> Extra { get; set; }
+        public DbSet<ProductExtra> ProductExtra { get; set; }
+        public DbSet<ProductSize> ProductSize { get; set; }
+        public DbSet<Size> Size { get; set; }
+        public DbSet<Topping> Topping { get; set; }
+        public DbSet<ProductTopping> ProductTopping { get; set; }
+        public DbSet<ProductType> ProductType { get; set; }
 
         public static ApplicationDbContext Create()
         {
