@@ -218,22 +218,22 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Razor.3.3.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -346,6 +346,7 @@
     <Compile Include="Common\Common.cs" />
     <Compile Include="Common\SettingHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressesController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -406,7 +407,13 @@
     <Compile Include="Migrations\202411030858228_beverage_v10.Designer.cs">
       <DependentUpon>202411030858228_beverage_v10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411040628488_address_v1.cs" />
+    <Compile Include="Migrations\202411040628488_address_v1.Designer.cs">
+      <DependentUpon>202411040628488_address_v1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AddressParser.cs" />
+    <Compile Include="Models\EF\Address.cs" />
     <Compile Include="Models\EF\Combo.cs" />
     <Compile Include="Models\EF\ComboDetail.cs" />
     <Compile Include="Models\EF\Extra.cs" />
@@ -427,6 +434,7 @@
     <Compile Include="Models\Common\Filter.cs" />
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute .cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ViewModels\CustomerViewModel.cs" />
     <Compile Include="Models\EF\Advertisement.cs" />
     <Compile Include="Models\EF\Category.cs" />
@@ -3935,7 +3943,6 @@
     <Content Include="Views\Stores\Index.cshtml" />
     <Content Include="Views\ImageSliders\Index.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
-    <Content Include="Views\Products\_ProductItem.cshtml" />
     <Content Include="Views\Products\Search.cshtml" />
     <Content Include="Views\Products\_ProductList.cshtml" />
     <Content Include="Views\Home\FeedBackLetter.cshtml" />
@@ -3955,6 +3962,7 @@
     <Content Include="Views\Products\_RelatedProducts.cshtml" />
     <Content Include="Views\Products\ViewHistory.cshtml" />
     <Content Include="Views\MemberRank\MemberRank.cshtml" />
+    <Content Include="Views\Products\_AddressPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4009,6 +4017,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411030858228_beverage_v10.resx">
       <DependentUpon>202411030858228_beverage_v10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411040628488_address_v1.resx">
+      <DependentUpon>202411040628488_address_v1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

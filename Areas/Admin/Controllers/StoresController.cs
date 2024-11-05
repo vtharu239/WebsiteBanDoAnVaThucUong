@@ -30,7 +30,7 @@ namespace WebsiteBanDoAnVaThucUong.Areas.Admin.Controllers
                 {
                     Id = s.Id,
                     Name = s.Name,
-                    Address = s.Address,
+                    Address = s.Address.StreetAddress,
                     Long = s.Long,
                     Lat = s.Lat,
                     Image = s.Image,

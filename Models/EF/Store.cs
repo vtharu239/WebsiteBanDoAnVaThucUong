@@ -20,7 +20,10 @@ namespace WebsiteBanDoAnVaThucUong.Models.EF
         [StringLength(250)]
         public string Alias { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
+
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
+
         public double Long { get; set; }
         public double Lat { get; set; }
         [StringLength(250)]
