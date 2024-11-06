@@ -220,6 +220,13 @@ namespace WebsiteBanDoAnVaThucUong.Models
         {
             get
             {
+                if (IsGift)
+                {
+                    return Quantity > 0 &&
+                           ProductId > 0 &&
+                           StoreId > 0;
+                }
+
                 return Quantity > 0 &&
                        ProductId > 0 &&
                        StoreId > 0 &&
@@ -266,6 +273,11 @@ namespace WebsiteBanDoAnVaThucUong.Models
         {
             try
             {
+                if (IsGift)
+                {
+                    TotalPrice = 0;
+                    return;
+                }
                 decimal basePrice = Price;
                 decimal customizationPrice = 0;
 

@@ -411,6 +411,10 @@
     <Compile Include="Migrations\202411040628488_address_v1.Designer.cs">
       <DependentUpon>202411040628488_address_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411050858487_isgiftBuy2X1.cs" />
+    <Compile Include="Migrations\202411050858487_isgiftBuy2X1.Designer.cs">
+      <DependentUpon>202411050858487_isgiftBuy2X1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddressParser.cs" />
     <Compile Include="Models\EF\Address.cs" />
@@ -4020,6 +4024,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411040628488_address_v1.resx">
       <DependentUpon>202411040628488_address_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411050858487_isgiftBuy2X1.resx">
+      <DependentUpon>202411050858487_isgiftBuy2X1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
