@@ -9,10 +9,12 @@ namespace WebsiteBanDoAnVaThucUong.Models
     public class ShoppingCart
     {
         public List<ShoppingCartItem> Items { get; set; }
+        public decimal ShippingFee { get; set; }
         public int StoreId { get; set; }
         public ShoppingCart()
         {
             this.Items = new List<ShoppingCartItem>();
+            this.ShippingFee = 0;
            
         }
         // Add validation method
@@ -206,6 +208,7 @@ namespace WebsiteBanDoAnVaThucUong.Models
         public decimal TotalPrice { get; set; }
         public decimal OriginalPrice { get; set; }
         public bool IsGift { get; set; }
+        public decimal ShippingFee { get; set; }
         // Add these new properties for beverage customizations
         public string IceLevel { get; set; }
         public string SweetnessLevel { get; set; }

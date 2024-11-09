@@ -51,12 +51,12 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
 
         }
        [HttpPost]
-public JsonResult GetNearbyStores(string province, string district, string ward)
+    public JsonResult GetNearbyStores(string province, string district, string ward, string addressLine)
         {
             try
             {
                 // Log giá trị đầu vào
-                LogDebug("Input Values", new { province, district, ward });
+                LogDebug("Input Values", new { province, district, ward, addressLine});
 
                 // Lấy tất cả store để debug
                 var allStores = db.Stores
@@ -152,7 +152,8 @@ public JsonResult GetNearbyStores(string province, string district, string ward)
                         ),
                         Latitude = s.Lat,
                         Longitude = s.Long,
-                        Distance = CalculateDistance(centerLat, centerLong, s.Lat, s.Long)
+                        Distance = CalculateDistance(centerLat, centerLong, s.Lat, s.Long),
+                        ShippingFee = CalculateShippingFee(s.Lat, s.Long, centerLat, centerLong) // Thêm phí ship
                     })
                     .Where(s => s.Distance <= 100)
                     .OrderBy(s => s.Distance)
@@ -182,7 +183,17 @@ public JsonResult GetNearbyStores(string province, string district, string ward)
                 });
             }
         }
+        public decimal CalculateShippingFee(double storeLat, double storeLong, double customerLat, double customerLong)
+        {
+            var distance = CalculateDistance(storeLat, storeLong, customerLat, customerLong);
+            var shippingFeeSettings = db.ShippingFee.FirstOrDefault();
 
+            if (shippingFeeSettings == null)
+                return 0;
+
+            decimal shippingFee = shippingFeeSettings.FeePerKm * (decimal)distance;
+            return Math.Max(shippingFee, shippingFeeSettings.MinimumFee);
+        }
         private string RemoveVietnameseDiacritics(string text)
         {
             if (string.IsNullOrEmpty(text)) return string.Empty;
@@ -265,22 +276,6 @@ public JsonResult GetNearbyStores(string province, string district, string ward)
             return location.Trim();
         }
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Hàm mới để format địa chỉ từ các thành phần riêng lẻ
         private string FormatAddressFromComponents(string streetAddress, string wardName, string districtName, string provinceName)
         {
@@ -311,6 +306,7 @@ public JsonResult GetNearbyStores(string province, string district, string ward)
         {
             return value * Math.PI / 180;
         }
+       
         // GET: Stores/Details/5
         public ActionResult Details(int? id)
         {

@@ -81,10 +81,29 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
             if (cart != null && cart.Items.Any())
             {
+                // Lấy ShippingFee từ database
+                using (var db = new ApplicationDbContext())
+                {
+                    var storeId = cart.StoreId;
+                    var order = db.Orders
+                                 .Where(o => o.StoreId == storeId)
+                                 .OrderByDescending(o => o.CreatedDate)
+                                 .FirstOrDefault();
+
+                    if (order != null)
+                    {
+                        cart.ShippingFee = order.ShippingFee;
+                        Session["Cart"] = cart; // Cập nhật lại session
+                    }
+
+                    ViewBag.ShippingFee = cart.ShippingFee;
+                }
                 return PartialView(cart.Items);
             }
             return PartialView();
         }
+
+
         [AllowAnonymous]
         public ActionResult Partial_Item_Cart()
         {
@@ -126,6 +145,53 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             }
             return View();
         }
+
+        // Add this method to calculate shipping fee
+        private decimal CalculateShippingFee(Address customerAddress, Store store)
+        {
+            if (customerAddress == null || store == null)
+                return 0;
+
+            // Get shipping fee settings
+            var shippingFeeSettings = db.ShippingFee.FirstOrDefault();
+            if (shippingFeeSettings == null)
+                return 0;
+
+            // Calculate distance between store and customer
+            double distance = CalculateDistance(
+                (double)store.Lat,
+                (double)store.Long,
+                (double)customerAddress.Latitude,
+                (double)customerAddress.Longitude
+            );
+
+            // Calculate shipping fee based on distance and settings
+            decimal shippingFee = shippingFeeSettings.FeePerKm * (decimal)distance;
+            return Math.Max(shippingFee, shippingFeeSettings.MinimumFee);
+        }
+
+        // Helper method to calculate distance
+        private static readonly double EarthRadiusKm = 6371;
+        private static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        {
+            double dLat = ToRadians(lat2 - lat1);
+            double dLon = ToRadians(lon2 - lon1);
+
+            lat1 = ToRadians(lat1);
+            lat2 = ToRadians(lat2);
+
+            double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                       Math.Sin(dLon / 2) * Math.Sin(dLon / 2) * Math.Cos(lat1) * Math.Cos(lat2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
+            return EarthRadiusKm * c;
+        }
+
+        private static double ToRadians(double degrees)
+        {
+            return degrees * (Math.PI / 180);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -143,8 +209,26 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                         try
                         {
                             var storeId = cart.Items.First().StoreId;
+                            var customerAddress = (Address)Session["CustomerAddress"];
+                            var store = db.Stores.Find(storeId);
+
+                            // Kiểm tra địa chỉ khách hàng
+                            if (customerAddress == null)
+                            {
+                                throw new Exception("Vui lòng cập nhật địa chỉ giao hàng.");
+                            }
+                            if (store == null)
+                            {
+                                throw new Exception("Không tìm thấy thông tin cửa hàng.");
+                            }
+
+
                             if (cart.Items.All(item => item.StoreId == storeId))
                             {
+
+                                // Tính phí ship
+                                decimal shippingFee = CalculateShippingFee(customerAddress, store);
+
                                 // 1. Tạo và lưu Order trước
                                 Order order = new Order
                                 {
@@ -155,7 +239,8 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                                     CreatedBy = req.CustomerName,
                                     ModifiedDate = DateTime.Now,
                                     ModifiedBy = User.Identity.GetUserId(),
-                                    TypePayment = req.TypePayment
+                                    TypePayment = req.TypePayment,
+                                    ShippingFee = shippingFee  // Add shipping fee to order
                                 };
 
                                 if (User.Identity.IsAuthenticated)
@@ -200,17 +285,6 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                                         SelectedExtraIds = JsonConvert.SerializeObject(item.SelectedExtraIds ?? new List<int>()),
 
                                         // Lưu giá của từng option
-                                        //                            SizePrice = item.ProductSizes
-                                        //.Where(ps => item.SelectedSizeIds?.Contains(ps.Id) ?? false)
-                                        //.Sum(ps => ps.Size?.PriceSize ?? 0),
-
-                                        //                            ToppingPrice = item.ProductToppings
-                                        //.Where(pt => item.SelectedToppingIds?.Contains(pt.Id) ?? false)
-                                        //.Sum(pt => pt.Topping?.PriceTopping ?? 0),
-
-                                        //                            ExtraPrice = item.ProductExtras
-                                        //.Where(pe => item.SelectedExtraIds?.Contains(pe.Id) ?? false)
-                                        //.Sum(pe => pe.Extra?.Price ?? 0)
                                         SizePrice = !item.IsGift ? item.ProductSizes
                                     .Where(ps => item.SelectedSizeIds?.Contains(ps.Id) ?? false)
                                     .Sum(ps => ps.Size?.PriceSize ?? 0) : 0,
@@ -282,7 +356,7 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                                     order.VoucherDiscount = order.SubTotal * voucher.Discount;
                                 }
 
-                                order.FinalAmount = totalAmount - order.VoucherDiscount;
+                                order.FinalAmount = totalAmount + shippingFee - order.VoucherDiscount;
                                 db.Entry(order).State = EntityState.Modified;
                                 db.SaveChanges();
 
@@ -290,10 +364,23 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
                                 var strSanPham = "";
                                 var thanhtien = decimal.Zero;
                                 var TongTien = decimal.Zero;
+
+                                strSanPham += "<table style='width:100%; border-collapse: collapse;'>";
+                                strSanPham += "<thead>";
+                                strSanPham += "<tr>";
+                                strSanPham += "<th style='border: 1px solid #ddd; padding: 12px;'>Sản phẩm</th>";
+                                strSanPham += "<th style='border: 1px solid #ddd; padding: 12px; text-align: center;'>Số lượng</th>";
+                                strSanPham += "<th style='border: 1px solid #ddd; padding: 12px; text-align: right;'>Giá tiền</th>";
+                                strSanPham += "</tr>";
+                                strSanPham += "</thead>";
+                                strSanPham += "<tbody>";
+
                                 foreach (var sp in cart.Items)
                                 {
                                     strSanPham += "<tr>";
-                                    strSanPham += "<td>" + sp.ProductName + "</td>";
+                                    strSanPham += "<td style='border: 1px solid #ddd; padding: 12px;'>" + sp.ProductName;
+
+                                    // Thêm thông tin Size, Topping, Extra (nếu có)
                                     if (sp.SelectedSizeIds?.Any() == true)
                                     {
                                         strSanPham += "<br/>Size: " + sp.FormattedSizeNames;
@@ -309,11 +396,19 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
 
                                     strSanPham += "</td>";
 
-                                    strSanPham += "<td>" + sp.Quantity + "</td>";
-                                    strSanPham += "<td>" + WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
+                                    // Hiển thị số lượng
+                                    strSanPham += "<td style='border: 1px solid #ddd; padding: 12px; text-align: center;'>" + sp.Quantity + "</td>";
+
+                                    // Hiển thị giá tiền
+                                    strSanPham += "<td style='border: 1px solid #ddd; padding: 12px; text-align: right;'>" + WebsiteBanDoAnVaThucUong.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
                                     strSanPham += "</tr>";
+
                                     thanhtien += sp.Price * sp.Quantity;
                                 }
+
+                                strSanPham += "</tbody>";
+                                strSanPham += "</table>";
+
                                 TongTien = thanhtien;
                                 string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
                                 contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);

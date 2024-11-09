@@ -158,6 +158,7 @@ namespace WebsiteBanDoAnVaThucUong.Models
         public DbSet<ProductTopping> ProductTopping { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<ShippingFee> ShippingFee { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -357,6 +357,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ShippingFeesController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreProductsController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
@@ -415,6 +416,22 @@
     <Compile Include="Migrations\202411050858487_isgiftBuy2X1.Designer.cs">
       <DependentUpon>202411050858487_isgiftBuy2X1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411080957565_ShippingFee.cs" />
+    <Compile Include="Migrations\202411080957565_ShippingFee.Designer.cs">
+      <DependentUpon>202411080957565_ShippingFee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411081203284_Fee_v2.cs" />
+    <Compile Include="Migrations\202411081203284_Fee_v2.Designer.cs">
+      <DependentUpon>202411081203284_Fee_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411081213456_Fee_v3.cs" />
+    <Compile Include="Migrations\202411081213456_Fee_v3.Designer.cs">
+      <DependentUpon>202411081213456_Fee_v3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411090125493_Fee_v31.cs" />
+    <Compile Include="Migrations\202411090125493_Fee_v31.Designer.cs">
+      <DependentUpon>202411090125493_Fee_v31.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddressParser.cs" />
     <Compile Include="Models\EF\Address.cs" />
@@ -427,10 +444,12 @@
     <Compile Include="Models\EF\ProductTopping.cs" />
     <Compile Include="Models\EF\ProductType.cs" />
     <Compile Include="Models\EF\ProductViewHistory.cs" />
+    <Compile Include="Models\EF\ShippingFee.cs" />
     <Compile Include="Models\EF\Size.cs" />
     <Compile Include="Models\EF\StoreDTO.cs" />
     <Compile Include="Models\EF\StoreProduct.cs" />
     <Compile Include="Models\EF\Topping.cs" />
+    <Compile Include="Models\StoreProductViewModel.cs" />
     <Compile Include="Models\RankingService.cs" />
     <Compile Include="Models\StockInfo.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
@@ -3966,7 +3985,11 @@
     <Content Include="Views\Products\_RelatedProducts.cshtml" />
     <Content Include="Views\Products\ViewHistory.cshtml" />
     <Content Include="Views\MemberRank\MemberRank.cshtml" />
-    <Content Include="Views\Products\_AddressPartial.cshtml" />
+    <Content Include="Views\ShippingFees\Create.cshtml" />
+    <Content Include="Views\ShippingFees\Delete.cshtml" />
+    <Content Include="Views\ShippingFees\Details.cshtml" />
+    <Content Include="Views\ShippingFees\Edit.cshtml" />
+    <Content Include="Views\ShippingFees\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4027,6 +4050,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411050858487_isgiftBuy2X1.resx">
       <DependentUpon>202411050858487_isgiftBuy2X1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411080957565_ShippingFee.resx">
+      <DependentUpon>202411080957565_ShippingFee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411081203284_Fee_v2.resx">
+      <DependentUpon>202411081203284_Fee_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411081213456_Fee_v3.resx">
+      <DependentUpon>202411081213456_Fee_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411090125493_Fee_v31.resx">
+      <DependentUpon>202411090125493_Fee_v31.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
