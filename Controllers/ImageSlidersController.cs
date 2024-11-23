@@ -21,7 +21,12 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             var data = (from d in db.ImageSlider select d).ToList();
             return View(data);
         }
-
+        // Action for Partial View
+        public PartialViewResult _ImageSliderPartial()
+        {
+            var data = db.ImageSlider.ToList();
+            return PartialView(data);
+        }
         // GET: ImageSliders/Details/5
         public ActionResult Details(int? id)
         {

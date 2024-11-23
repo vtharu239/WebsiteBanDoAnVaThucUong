@@ -50,7 +50,30 @@ namespace WebsiteBanDoAnVaThucUong.Controllers
             return View(pagedStores);
 
         }
-       [HttpPost]
+        public PartialViewResult _StoresPartial(int? page)
+        {
+            var pageSize = 10;
+            var pageIndex = page ?? 1;
+            var storeDTOs = db.Stores
+                .OrderByDescending(x => x.Id)
+                .Select(s => new StoreDTO
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Address = s.Address.StreetAddress,
+                    Long = s.Long,
+                    Lat = s.Lat,
+                    Image = s.Image,
+                    Alias = s.Alias
+                })
+                .ToList();
+            ViewBag.Stores = storeDTOs;
+            var pagedStores = new PagedList<StoreDTO>(storeDTOs, pageIndex, pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.Page = pageIndex;
+            return PartialView(pagedStores);
+        }
+        [HttpPost]
     public JsonResult GetNearbyStores(string province, string district, string ward, string addressLine)
         {
             try

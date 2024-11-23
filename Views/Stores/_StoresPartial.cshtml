@@ -1,8 +1,6 @@
-﻿﻿@model PagedList.PagedList<WebsiteBanDoAnVaThucUong.Models.EF.StoreDTO>
-
+﻿@model PagedList.PagedList<WebsiteBanDoAnVaThucUong.Models.EF.StoreDTO>
 
 <div style="margin: 10px auto; width: 90%; padding-top:50px">
-
     <div class="row">
         <div class="col text-center">
             <div class="section_title new_arrivals_title">
@@ -12,15 +10,12 @@
     </div>
     <div class="row" style="margin-top: 50px; margin-left:100px; margin: 100px">
         <div class="row">
-
-
             @if (Model != null && Model.Any())
             {
                 foreach (var item in Model)
                 {
                     <div class="col-lg-4 col-md-6 mb-3">
                         <div class="card h-100">
-                            <!-- Product 1 -->
                             <img class="card-img-top"
                                  src="~/Image/@item.Image" style="width:330px; height:300px">
                             <div class="store-item @item.Alias">
@@ -33,7 +28,6 @@
                                     </h3>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 }
@@ -42,46 +36,30 @@
     </div>
 </div>
 
-@section scripts{
-    <script src="~/Content/assets/js/store.js"></script>
-}
-
-<script src="~/lib/leaf/leaflet.js"></script>
-<script src="~/lib/leaf/leaflet.min.js"></script>
-<link href="~/lib/leaf/leaflet.min.css" rel="stylesheet" />
-<link href="~/lib/leaf/leaflet.css" rel="stylesheet" />
 <div style="width: 90%;margin: 0 auto">
     <div id="map" style="width:100%;height:400px"></div>
 </div>
+
 <script>
     var map = L.map('map', {
         maxBounds: L.latLngBounds(
-            L.latLng(10.5, 106.0),  // Góc dưới trái
-            L.latLng(11.5, 107.0)   // Góc trên phải
+            L.latLng(10.5, 106.0),
+            L.latLng(11.5, 107.0)
         ),
-        maxBoundsViscosity: 1.0  // Độ đàn hồi của giới hạn
+        maxBoundsViscosity: 1.0
     }).setView([10.902522935042768, 106.5834090763168], 8);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-
     var jsModel = @Html.Raw(Json.Encode(Model));
-        console.log(jsModel)
-
-        //var settings = new JsonSerializerSettings
-        //{
-        //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        //};
-        //var jsModel = Html.Raw(JsonConvert.SerializeObject(Model, settings));
 
     var myIcon = L.icon({
         iconUrl: '/lib/leaf/images/location.png',
         iconSize: [25, 45],
         iconAnchor: [15, 45],
         popupAnchor: [-3, -46],
-
     });
 
     for (i in jsModel) {
@@ -92,43 +70,19 @@
         else {
             L.marker([item.Lat, item.Long]).addTo(map).bindPopup(item.Name + '<br>' + item.Address)
         }
-
     }
-    map.dragging.disable();  // Tắt kéo bản đồ mặc định
+
+    map.dragging.disable();
 
     map.on('keydown', function (event) {
         if (event.originalEvent.ctrlKey) {
-            map.dragging.enable();  // Bật kéo khi giữ Ctrl
+            map.dragging.enable();
         }
     });
 
     map.on('keyup', function (event) {
         if (!event.originalEvent.ctrlKey) {
-            map.dragging.disable();  // Tắt kéo khi thả Ctrl
+            map.dragging.disable();
         }
     });
-
 </script>
-<style>
-    header {
-        position: relative;
-        z-index: 10; /* Giá trị lớn hơn của bản đồ */
-    }
-
-    #map {
-        position: relative;
-        z-index: 1;
-    }
-    .map-container {
-        overflow: hidden;
-        position: relative;
-    }
-
-    #map{
-        max-width: 100%;
-        width: 100%;
-        height: 400px;
-        margin: 0 auto;/*center the map*/
-        overflow: hidden;
-    }
-</style>

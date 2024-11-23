@@ -1,89 +1,9 @@
 ﻿﻿@{
     ViewBag.Title = "Food And Drink Store";
     ViewBag.SeoDescription = "Shop Online";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
-@section Scripts {
-    <script>
-        console.log("Script started");
-        $(document).ready(function() {
-            console.log("Document ready");
-            $.ajax({
-                url: '@Url.Action("GetActiveVoucher", "Vouchers")',
-                type: 'GET',
-                dataType: 'json',
-                success: function (vouchers) {
-                    if (vouchers && vouchers.length > 0) {
-                        var container = $('#voucherContainer');
-                        vouchers.forEach(function (voucher, index) {
-                            var item = $('<div>').addClass('carousel-item' + (index === 0 ? ' active' : ''))
-                                .append($('<div>').addClass('voucher-content')
-                                    .append($('<h4>').text(voucher.voucherName))
-                                    .append($('<p>').html('Mã giảm giá: <strong>' + voucher.coupon + '</strong>'))
-                                    .append($('<p>').text(voucher.description))
-                                    .append($('<p>').html('Giảm giá: <strong>' + (voucher.discount * 100) + '%</strong>')));
-                            container.append(item);
-                        });
-                        $('#voucherModal').modal('show');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching vouchers:", error);
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const texts = document.querySelectorAll('.text');
-            const prev = document.getElementById('prev');
-            const next = document.getElementById('next');
-            let currentIndex = 0;
-            const displayTime = 5000; // Thời gian đứng yên (5000 ms)
-            const fadeDuration = 500; // Thời gian hiệu ứng mờ dần (500 ms)
-            let intervalId; // ID của interval để có thể xóa nó khi cần
-            // Hiển thị text đầu tiên
-            texts[currentIndex].style.display = 'inline';
-            texts[currentIndex].style.opacity = '1';
-            function showText(index) {
-                // Ẩn text hiện tại
-                texts[currentIndex].style.opacity = '0';
-                setTimeout(() => {
-                    texts[currentIndex].style.display = 'none';
-                    // Cập nhật chỉ số mới
-                    currentIndex = index;
-                    // Hiển thị text mới
-                    texts[currentIndex].style.display = 'inline';
-                    setTimeout(() => (texts[currentIndex].style.opacity = '1'), 100); // Hiệu ứng hiện ra
-                }, fadeDuration); // Thời gian mờ dần
-            }
-            function resetInterval() {
-                clearInterval(intervalId); // Xóa interval cũ
-                intervalId = setInterval(() => {
-                    const nextIndex = (currentIndex + 1) % texts.length;
-                    showText(nextIndex);
-                }, displayTime + fadeDuration);
-            }
-            next.addEventListener('click', function () {
-                const nextIndex = (currentIndex + 1) % texts.length;
-                showText(nextIndex);
-                resetInterval(); // Khởi động lại interval khi bấm vào next
-            });
-            prev.addEventListener('click', function () {
-                const prevIndex = (currentIndex - 1 + texts.length) % texts.length;
-                showText(prevIndex);
-                resetInterval(); // Khởi động lại interval khi bấm vào prev
-            });
-            // Tự động chuyển text sau mỗi displayTime
-            intervalId = setInterval(() => {
-                const nextIndex = (currentIndex + 1) % texts.length;
-                showText(nextIndex);
-            }, displayTime + fadeDuration);
-        });
-    </script>
-}
 <style>
     .carousel-control-prev, .carousel-control-next {
         background-color: rgba(0, 0, 0, 0.3);
@@ -97,11 +17,11 @@
     }
 
     .carousel-control-prev {
-        left: -200px; /* Điều chỉnh vị trí bên trái của nút prev */
+        left:0px; /* Điều chỉnh vị trí bên trái của nút prev */
     }
 
     .carousel-control-next {
-        right: -5000px; /* Điều chỉnh vị trí bên phải của nút next */
+        right: 0px; /* Điều chỉnh vị trí bên phải của nút next */
     }
 
     .modal-body {
@@ -112,6 +32,7 @@
         padding: 20px;
         text-align: center;
     }
+
     .line-auto {
         display: flex;
         justify-content: space-between;
@@ -152,12 +73,10 @@
         transition: opacity 0.5s ease-in-out; /* Hiệu ứng mờ dần */
         display: none; /* Đảm bảo chỉ có một span hiển thị */
     }
-
 </style>
 
 @*//Image Slider*@
-
-@Html.Action("Index", "ImageSliders")
+@Html.Action("_ImageSliderPartial", "ImageSliders")
 <div class="line-auto">
     <i class="fa fa-chevron-left" id="prev"></i>
     <div id="text-container">
@@ -272,9 +191,6 @@
     </div>
 </div>
 <!-- Benefit -->
-
-
-@Html.Action("Index", "Stores")
 <!-- Blogs -->
 <div class="benefit">
     <div class="container">
@@ -319,5 +235,82 @@
     </div>
 </div>
 
-
-
+@section Scripts {
+    <script>
+        console.log("Script started");
+        $(document).ready(function() {
+            console.log("Document ready");
+            $.ajax({
+                @*url: '@Url.Action("GetActiveVoucher", "Vouchers")',*@
+                type: 'GET',
+                dataType: 'json',
+                success: function (vouchers) {
+                    if (vouchers && vouchers.length > 0) {
+                        var container = $('#voucherContainer');
+                        vouchers.forEach(function (voucher, index) {
+                            var item = $('<div>').addClass('carousel-item' + (index === 0 ? ' active' : ''))
+                                .append($('<div>').addClass('voucher-content')
+                                    .append($('<h4>').text(voucher.voucherName))
+                                    .append($('<p>').html('Mã giảm giá: <strong>' + voucher.coupon + '</strong>'))
+                                    .append($('<p>').text(voucher.description))
+                                    .append($('<p>').html('Giảm giá: <strong>' + (voucher.discount * 100) + '%</strong>')));
+                            container.append(item);
+                        });
+                        $('#voucherModal').modal('show');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching vouchers:", error);
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const texts = document.querySelectorAll('.text');
+            const prev = document.getElementById('prev');
+            const next = document.getElementById('next');
+            let currentIndex = 0;
+            const displayTime = 5000; // Thời gian đứng yên (5000 ms)
+            const fadeDuration = 500; // Thời gian hiệu ứng mờ dần (500 ms)
+            let intervalId; // ID của interval để có thể xóa nó khi cần
+            // Hiển thị text đầu tiên
+            texts[currentIndex].style.display = 'inline';
+            texts[currentIndex].style.opacity = '1';
+            function showText(index) {
+                // Ẩn text hiện tại
+                texts[currentIndex].style.opacity = '0';
+                setTimeout(() => {
+                    texts[currentIndex].style.display = 'none';
+                    // Cập nhật chỉ số mới
+                    currentIndex = index;
+                    // Hiển thị text mới
+                    texts[currentIndex].style.display = 'inline';
+                    setTimeout(() => (texts[currentIndex].style.opacity = '1'), 100); // Hiệu ứng hiện ra
+                }, fadeDuration); // Thời gian mờ dần
+            }
+            function resetInterval() {
+                clearInterval(intervalId); // Xóa interval cũ
+                intervalId = setInterval(() => {
+                    const nextIndex = (currentIndex + 1) % texts.length;
+                    showText(nextIndex);
+                }, displayTime + fadeDuration);
+            }
+            next.addEventListener('click', function () {
+                const nextIndex = (currentIndex + 1) % texts.length;
+                showText(nextIndex);
+                resetInterval(); // Khởi động lại interval khi bấm vào next
+            });
+            prev.addEventListener('click', function () {
+                const prevIndex = (currentIndex - 1 + texts.length) % texts.length;
+                showText(prevIndex);
+                resetInterval(); // Khởi động lại interval khi bấm vào prev
+            });
+            // Tự động chuyển text sau mỗi displayTime
+            intervalId = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % texts.length;
+                showText(nextIndex);
+            }, displayTime + fadeDuration);
+        });
+    </script>
+}
